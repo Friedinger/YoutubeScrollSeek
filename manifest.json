@@ -1,0 +1,19 @@
+{
+	"manifest_version": 3,
+	"name": "YouTube Scroll Seek",
+	"version": "1.0",
+	"description": "Seek forward and backward on YouTube using the horizontal scroll wheel.",
+	"permissions": ["scripting", "tabs", "storage"],
+	"host_permissions": ["https://www.youtube.com/*"],
+	"content_scripts": [
+		{
+			"matches": ["https://www.youtube.com/*"],
+			"js": ["content.js"],
+			"run_at": "document_idle"
+		}
+	],
+	"action": {
+		"default_popup": "options.html"
+	},
+	"options_page": "options.html"
+}

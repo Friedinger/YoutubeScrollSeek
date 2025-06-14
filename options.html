@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Scroll Seek Settings</title>
+	</head>
+	<body>
+		<h1>Scroll Seek Settings</h1>
+
+		<label>
+			Scroll Threshold (px):
+			<input type="number" id="scrollThreshold" value="25" />
+		</label>
+		<br /><br />
+
+		<label>
+			Seek Time (Seconds):
+			<input type="number" id="seekTime" value="5" />
+		</label>
+		<br /><br />
+
+		<fieldset>
+			<legend>Ignore While Key Is Pressed:</legend>
+			<label><input type="checkbox" id="shiftKey" /> Shift</label><br />
+			<label><input type="checkbox" id="ctrlKey" /> Ctrl</label><br />
+			<label><input type="checkbox" id="altKey" /> Alt</label><br />
+			<label><input type="checkbox" id="metaKey" /> Meta (Cmd)</label>
+		</fieldset>
+		<br />
+
+		<button id="save">Save</button>
+		<p id="status"></p>
+
+		<script src="options.js"></script>
+	</body>
+</html>
