@@ -1,17 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
 	const scrollThreshold = document.getElementById("scrollThreshold");
-	const seekTime = document.getElementById("seekTime");
 	const keys = ["shiftKey", "ctrlKey", "altKey", "metaKey"];
 
 	chrome.storage.local.get(
 		{
 			scrollThreshold: 25,
-			seekTime: 5,
 			preventKeys: keys,
 		},
 		(data) => {
 			scrollThreshold.value = data.scrollThreshold;
-			seekTime.value = data.seekTime;
 			keys.forEach((key) => {
 				document.getElementById(key).checked =
 					data.preventKeys.includes(key);
@@ -25,7 +22,6 @@ document.addEventListener("DOMContentLoaded", () => {
 		);
 		const options = {
 			scrollThreshold: parseInt(scrollThreshold.value, 10),
-			seekTime: parseInt(seekTime.value, 10),
 			preventKeys: selectedKeys,
 		};
 		chrome.storage.local.set(options, () => {
