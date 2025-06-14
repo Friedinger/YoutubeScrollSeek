@@ -1,14 +1,26 @@
 (function () {
 	const getOptions = () =>
 		new Promise((resolve) => {
-			chrome.storage.sync.get(
-				{
-					scrollThreshold: 25,
-					seekTime: 5,
-					preventKeys: ["shiftKey", "ctrlKey", "altKey", "metaKey"],
-				},
-				resolve
-			);
+			chrome.storage.local.get(null, (result) => {
+				const options = {
+					scrollThreshold: result?.scrollThreshold ?? 25,
+					seekTime: result?.seekTime ?? 5,
+					preventKeys: result?.preventKeys ?? [
+						"shiftKey",
+						"ctrlKey",
+						"altKey",
+						"metaKey",
+					],
+				};
+				if (
+					!result.scrollThreshold &&
+					!result.seekTime &&
+					!result.preventKeys
+				) {
+					chrome.storage.local.set(options);
+				}
+				resolve(options);
+			});
 		});
 
 	const shouldPrevent = (event, preventKeys) =>

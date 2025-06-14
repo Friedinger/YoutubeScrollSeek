@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", () => {
 	const seekTime = document.getElementById("seekTime");
 	const keys = ["shiftKey", "ctrlKey", "altKey", "metaKey"];
 
-	chrome.storage.sync.get(
+	chrome.storage.local.get(
 		{
 			scrollThreshold: 25,
 			seekTime: 5,
@@ -23,20 +23,18 @@ document.addEventListener("DOMContentLoaded", () => {
 		const selectedKeys = keys.filter(
 			(k) => document.getElementById(k).checked
 		);
-		chrome.storage.sync.set(
-			{
-				scrollThreshold: parseInt(scrollThreshold.value, 10),
-				seekTime: parseInt(seekTime.value, 10),
-				preventKeys: selectedKeys,
-			},
-			() => {
-				document.getElementById("status").textContent =
-					"Saved! Reload page to apply.";
-				setTimeout(
-					() => (document.getElementById("status").textContent = ""),
-					1500
-				);
-			}
-		);
+		const options = {
+			scrollThreshold: parseInt(scrollThreshold.value, 10),
+			seekTime: parseInt(seekTime.value, 10),
+			preventKeys: selectedKeys,
+		};
+		chrome.storage.local.set(options, () => {
+			document.getElementById("status").textContent =
+				"Saved! Reload page to apply.";
+			setTimeout(
+				() => (document.getElementById("status").textContent = ""),
+				1500
+			);
+		});
 	});
 });
