@@ -34,11 +34,20 @@
     document.dispatchEvent(event);
   };
 
+  let lastSeekTime = 0;
+  const THROTTLE_MS = 300;
+
   const handleWheel = (options) => (event) => {
     const video = document.querySelector("video");
     if (!video) return;
     if (shouldPrevent(event, options.preventKeys)) return;
     if (Math.abs(event.deltaX) < options.scrollThreshold) return;
+    const now = Date.now();
+    if (now - lastSeekTime < THROTTLE_MS) {
+      event.preventDefault();
+      return;
+    }
+    lastSeekTime = now;
     event.preventDefault();
     if (event.deltaX < 0) {
       simulateArrowKey("left");
