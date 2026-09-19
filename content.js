@@ -37,11 +37,15 @@
   let lastSeekTime = 0;
   const THROTTLE_MS = 300;
 
+  const DELTA_MODE_MULTIPLIERS = { 0: 1, 1: 40, 2: 800 };
+
   const handleWheel = (options) => (event) => {
     const video = document.querySelector("video");
     if (!video) return;
     if (shouldPrevent(event, options.preventKeys)) return;
-    if (Math.abs(event.deltaX) < options.scrollThreshold) return;
+    const multiplier = DELTA_MODE_MULTIPLIERS[event.deltaMode] ?? 1;
+    const normalizedDeltaX = event.deltaX * multiplier;
+    if (Math.abs(normalizedDeltaX) < options.scrollThreshold) return;
     const now = Date.now();
     if (now - lastSeekTime < THROTTLE_MS) {
       event.preventDefault();
