@@ -18,6 +18,8 @@
       });
     });
 
+  let options;
+
   const shouldPrevent = (event, preventKeys) =>
     preventKeys.some((key) => event[key]);
 
@@ -39,7 +41,7 @@
 
   const DELTA_MODE_MULTIPLIERS = { 0: 1, 1: 40, 2: 800 };
 
-  const handleWheel = (options) => (event) => {
+  const handleWheel = (event) => {
     const video = document.querySelector("video");
     if (!video) return;
     if (shouldPrevent(event, options.preventKeys)) return;
@@ -60,9 +62,17 @@
     }
   };
 
-  getOptions().then((options) => {
-    window.addEventListener("wheel", handleWheel(options), {
-      passive: false,
-    });
+  getOptions().then((loaded) => {
+    options = loaded;
+    window.addEventListener("wheel", handleWheel, { passive: false });
+  });
+
+  chrome.storage.onChanged.addListener((changes) => {
+    if (changes.scrollThreshold) {
+      options.scrollThreshold = changes.scrollThreshold.newValue;
+    }
+    if (changes.preventKeys) {
+      options.preventKeys = changes.preventKeys.newValue;
+    }
   });
 })();

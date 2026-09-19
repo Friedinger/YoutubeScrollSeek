@@ -15,19 +15,14 @@ document.addEventListener("DOMContentLoaded", () => {
     },
   );
 
-  document.getElementById("save").addEventListener("click", () => {
+  const save = () => {
     const selectedKeys = keys.filter((k) => document.getElementById(k).checked);
-    const options = {
+    chrome.storage.local.set({
       scrollThreshold: parseInt(scrollThreshold.value, 10),
       preventKeys: selectedKeys,
-    };
-    chrome.storage.local.set(options, () => {
-      document.getElementById("status").textContent =
-        "Saved! Reload page to apply.";
-      setTimeout(
-        () => (document.getElementById("status").textContent = ""),
-        1500,
-      );
     });
-  });
+  };
+
+  scrollThreshold.addEventListener("change", save);
+  keys.forEach((key) => document.getElementById(key).addEventListener("change", save));
 });
