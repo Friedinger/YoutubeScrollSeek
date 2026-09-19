@@ -2,23 +2,28 @@
 <html lang="en">
   <head>
     <title>Scroll Seek Settings</title>
+    <link rel="stylesheet" href="options.css" />
   </head>
   <body>
-    <h1>Scroll Seek Settings</h1>
+    <h1>Scroll Seek</h1>
 
-    <label>
-      Scroll Threshold (px):
-      <input type="number" id="scrollThreshold" value="25" />
-    </label>
-    <br /><br />
+    <div class="card">
+      <div class="card-label">Scroll Threshold (px)</div>
+      <div class="threshold-row">
+        <span>Minimum horizontal scroll</span>
+        <input type="number" id="scrollThreshold" value="25" min="1" />
+      </div>
+    </div>
 
-    <fieldset>
-      <legend>Ignore While Key Is Pressed:</legend>
-      <label><input type="checkbox" id="shiftKey" /> Shift</label><br />
-      <label><input type="checkbox" id="ctrlKey" /> Ctrl</label><br />
-      <label><input type="checkbox" id="altKey" /> Alt</label><br />
-      <label><input type="checkbox" id="metaKey" /> Meta (Cmd)</label>
-    </fieldset>
+    <div class="card">
+      <div class="card-label">Ignore While Key Is Held</div>
+      <div class="checkbox-list">
+        <label><input type="checkbox" id="shiftKey" /> Shift</label>
+        <label><input type="checkbox" id="ctrlKey" /> Ctrl</label>
+        <label><input type="checkbox" id="altKey" /> Alt</label>
+        <label><input type="checkbox" id="metaKey" /> Meta (Cmd)</label>
+      </div>
+    </div>
 
     <script src="options.js"></script>
   </body>
