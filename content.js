@@ -47,7 +47,7 @@
     const video = document.querySelector("video");
     if (!video) return;
     if (shouldPrevent(event, options.preventKeys)) return;
-    if (options.disableOnTrackpad && event.deltaMode === 0) return;
+    if (options.disableOnTrackpad && event.deltaMode === 0 && event.deltaX !== 0 && event.deltaY !== 0) return;
     const multiplier = DELTA_MODE_MULTIPLIERS[event.deltaMode] ?? 1;
     const normalizedDeltaX = event.deltaX * multiplier;
     if (Math.abs(normalizedDeltaX) < options.scrollThreshold) return;
