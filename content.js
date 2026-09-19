@@ -10,6 +10,7 @@
             "altKey",
             "metaKey",
           ],
+          disableOnTrackpad: result?.disableOnTrackpad ?? false,
         };
         if (!result.scrollThreshold && !result.preventKeys) {
           chrome.storage.local.set(options);
@@ -45,6 +46,7 @@
     const video = document.querySelector("video");
     if (!video) return;
     if (shouldPrevent(event, options.preventKeys)) return;
+    if (options.disableOnTrackpad && event.deltaMode === 0) return;
     const multiplier = DELTA_MODE_MULTIPLIERS[event.deltaMode] ?? 1;
     const normalizedDeltaX = event.deltaX * multiplier;
     if (Math.abs(normalizedDeltaX) < options.scrollThreshold) return;
@@ -73,6 +75,9 @@
     }
     if (changes.preventKeys) {
       options.preventKeys = changes.preventKeys.newValue;
+    }
+    if (changes.disableOnTrackpad) {
+      options.disableOnTrackpad = changes.disableOnTrackpad.newValue;
     }
   });
 })();

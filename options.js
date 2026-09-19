@@ -6,12 +6,15 @@ document.addEventListener("DOMContentLoaded", () => {
     {
       scrollThreshold: 25,
       preventKeys: keys,
+      disableOnTrackpad: false,
     },
     (data) => {
       scrollThreshold.value = data.scrollThreshold;
       keys.forEach((key) => {
         document.getElementById(key).checked = data.preventKeys.includes(key);
       });
+      document.getElementById("disableOnTrackpad").checked =
+        data.disableOnTrackpad;
     },
   );
 
@@ -20,9 +23,11 @@ document.addEventListener("DOMContentLoaded", () => {
     chrome.storage.local.set({
       scrollThreshold: parseInt(scrollThreshold.value, 10),
       preventKeys: selectedKeys,
+      disableOnTrackpad: document.getElementById("disableOnTrackpad").checked,
     });
   };
 
   scrollThreshold.addEventListener("change", save);
   keys.forEach((key) => document.getElementById(key).addEventListener("change", save));
+  document.getElementById("disableOnTrackpad").addEventListener("change", save);
 });
