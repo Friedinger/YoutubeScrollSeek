@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", () => {
       scrollThreshold: 25,
       preventKeys: keys,
       disableOnTrackpad: false,
+      invertDirection: false,
     },
     (data) => {
       scrollThreshold.value = data.scrollThreshold;
@@ -15,6 +16,7 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       document.getElementById("disableOnTrackpad").checked =
         data.disableOnTrackpad;
+      document.getElementById("invertDirection").checked = data.invertDirection;
     },
   );
 
@@ -24,10 +26,12 @@ document.addEventListener("DOMContentLoaded", () => {
       scrollThreshold: parseInt(scrollThreshold.value, 10),
       preventKeys: selectedKeys,
       disableOnTrackpad: document.getElementById("disableOnTrackpad").checked,
+      invertDirection: document.getElementById("invertDirection").checked,
     });
   };
 
   scrollThreshold.addEventListener("change", save);
   keys.forEach((key) => document.getElementById(key).addEventListener("change", save));
   document.getElementById("disableOnTrackpad").addEventListener("change", save);
+  document.getElementById("invertDirection").addEventListener("change", save);
 });

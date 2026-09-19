@@ -11,6 +11,7 @@
             "metaKey",
           ],
           disableOnTrackpad: result?.disableOnTrackpad ?? false,
+          invertDirection: result?.invertDirection ?? false,
         };
         if (!result.scrollThreshold && !result.preventKeys) {
           chrome.storage.local.set(options);
@@ -57,11 +58,8 @@
     }
     lastSeekTime = now;
     event.preventDefault();
-    if (event.deltaX < 0) {
-      simulateArrowKey("left");
-    } else {
-      simulateArrowKey("right");
-    }
+    const goLeft = options.invertDirection ? event.deltaX > 0 : event.deltaX < 0;
+    simulateArrowKey(goLeft ? "left" : "right");
   };
 
   getOptions().then((loaded) => {
@@ -78,6 +76,9 @@
     }
     if (changes.disableOnTrackpad) {
       options.disableOnTrackpad = changes.disableOnTrackpad.newValue;
+    }
+    if (changes.invertDirection) {
+      options.invertDirection = changes.invertDirection.newValue;
     }
   });
 })();
