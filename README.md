@@ -4,9 +4,9 @@ YoutubeScrollSeek is a browser extension that allows you to seek through YouTube
 
 ## Features
 
--   Seek forward or backward in YouTube videos using the mouse scroll wheel
--   Customizable options for scroll sensitivity and seek duration
--   Simple and lightweight extension
+- Seek forward or backward in YouTube videos using the mouse scroll wheel
+- Customizable options for scroll sensitivity and seek duration
+- Simple and lightweight extension
 
 ## Installation
 
@@ -17,9 +17,9 @@ YoutubeScrollSeek is a browser extension that allows you to seek through YouTube
 
 ## Usage
 
--   Open any YouTube video.
--   Use your mouse scroll wheel while hovering over the video to seek forward or backward.
--   Adjust options in the extension's settings page if available.
+- Open any YouTube video.
+- Use your mouse scroll wheel while hovering over the video to seek forward or backward.
+- Adjust options in the extension's settings page if available.
 
 ## Configuration
 
